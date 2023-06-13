@@ -1,9 +1,10 @@
-from flask import Flask, request, jsonify
+import flask
+from flask import request, jsonify
 from api.crawler.menu import mensaMenuAsJson
 import os
 import telebot
 
-app = Flask(__name__)
+app = flask.Flask(__name__)
 
 bot = telebot.TeleBot(os.environ.get('TELEGRAM_TOKEN'), threaded=False)
 
@@ -13,13 +14,13 @@ def home():
 
 @app.route("/webhook", methods=["POST"])
 def webhook():
-    if Flask.request.headers.get("content-type") == "application/json":
-        json_string = Flask.request.get_data().decode("utf-8")
+    if flask.request.headers.get("content-type") == "application/json":
+        json_string = flask.request.get_data().decode("utf-8")
         update = telebot.types.Update.de_json(json_string)
-        bot.process_new_updates([update])
+        flask.process_new_updates([update])
         return ""
     else:
-        Flask.abort(403)
+        app.abort(403)
 
 
 @app.route('/menu', methods=['GET'])
