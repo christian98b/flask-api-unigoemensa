@@ -7,6 +7,9 @@ import os
 import telebot
 from dotenv import load_dotenv
 import datetime
+from zoneinfo import ZoneInfo
+
+
 
 load_dotenv()
 
@@ -59,7 +62,7 @@ def send_mensa(message):
         return
     
 
-    current_date = datetime.date.today()
+    current_date = datetime.now(ZoneInfo("Europe/Berlin"))
     meals = mensa_meals_as_dict(current_date.strftime("%Y-%m-%d"), location)
     reply = bot_meals_reply(meals)
     bot.reply_to(
