@@ -7,5 +7,5 @@ def bot_meals_reply(meals:dict):
             reply += f"Zutaten: {meal['meal_ingredients']}\n"
         if meal['content'] != 'Mittagsangebot' or meal['content'] != '':
             reply += f"Angebot: {meal['content']}\n\n"
-        reply += "____________________"
+        reply += "--------------------"
     return reply
