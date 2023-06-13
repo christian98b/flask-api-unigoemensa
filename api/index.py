@@ -3,6 +3,9 @@ from flask import request, jsonify
 from api.crawler.menu import mensaMenuAsJson
 import os
 import telebot
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = flask.Flask(__name__)
 
