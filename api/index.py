@@ -14,7 +14,6 @@ bot = telebot.TeleBot(os.environ.get('TELEGRAM_TOKEN'), threaded=False)
 
 @app.route('/')
 def home():
-    print(os.environ.get('TELEGRAM_TOKEN'))
     return 'Make a menu request to /menu?date=YYYY-MM-DD&location=LOCATION'
 
 @app.route("/webhook", methods=["POST"])
