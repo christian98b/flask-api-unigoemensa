@@ -4,6 +4,7 @@ from api.crawler.menu import mensaMenuAsJson
 import os
 import telebot
 from dotenv import load_dotenv
+import datetime
 
 load_dotenv()
 
@@ -36,8 +37,8 @@ def menu():
 # Handle '/start' and '/help'
 @bot.message_handler(commands=["mensa"])
 def send_welcome(message):
-    menu = mensaMenuAsJson('2023-06-13', 'zentralmensa')
-
+    current_date = datetime.date.today()
+    menu = mensaMenuAsJson(current_date.strftime("%Y-%m-%d"), 'zentralmensa')
     reply = "Heute in der Zentralmensa gibt es:\n\n"
     reply += "Ort: " + menu['location'] + "\n"
     reply += "Datum: " + menu['date'] + "\n\n"
