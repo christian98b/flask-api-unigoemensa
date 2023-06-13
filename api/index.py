@@ -40,7 +40,7 @@ def menu():
 @bot.message_handler(commands=["start"])
 def send_welcome(message):
     bot.reply_to(
-        message,"Willkommen beim Mensa Bot!\n\nWähle im Menü unten links eine Mensa aus, von der du das Menü für heute sehen willst. \n Dieser Bot steht in keiner Verbindung zur Uni Göttingen.",parse_mode='Markdown'
+        message,"Willkommen beim Mensa Bot!\n\nWähle im Menü unten links eine Mensa aus, von der du das Menü für heute sehen willst. \nDieser Bot steht in keiner Verbindung zur Uni Göttingen.",parse_mode='Markdown'
     )
     return
 

@@ -3,7 +3,7 @@ def bot_meals_reply(meals:dict):
     reply += "------------------------------------\n"
     for meal in meals['meals']:
         if meal['name'] != '':
-            reply += f"_{meal['type']}:_\n *{meal['name']}*\n\n"
+            reply += f"_{meal['type']}:_\n###*{meal['name']}*###\n\n"
         if meal['meal_ingredients'] != '':
             reply += f"Zutaten: {meal['meal_ingredients']}\n"
         if meal['content'] != 'Mittagsangebot' and meal['content'] != '':
