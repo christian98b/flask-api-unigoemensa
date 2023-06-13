@@ -6,7 +6,6 @@ import requests
 Function that crawls the html menu from the studentenwerk website and returns it as json.
 """
 def mensaMenuAsJson(date:str, location:str):
-    print(date, location)
     response = requests.get(f"https://www.studentenwerk-goettingen.de/fileadmin/templates/php/mensaspeiseplan/cached/de/{date}/{location}.html")
     my_str_as_bytes = str.encode(response.text, encoding='ISO-8859-1')
     html_text = my_str_as_bytes.decode('UTF-8')
@@ -37,4 +36,4 @@ def mensaMenuAsJson(date:str, location:str):
 
         meals.append(meal)
 
-    return json.dumps({'location': soup.find(class_='sp_date').previous.text.strip(),'date': soup.find(class_='sp_date').text.strip(), 'meals': meals})
+    return {'location': soup.find(class_='sp_date').previous.text.strip(),'date': soup.find(class_='sp_date').text.strip(), 'meals': meals}

@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from api.crawler.menu import mensaMenuAsJson
 
 app = Flask(__name__)
@@ -11,4 +11,4 @@ def home():
 def menu():
     args=request.args
     args=args.to_dict()
-    return mensaMenuAsJson(args.get('date'), args.get('location'))
+    return jsonify(mensaMenuAsJson(args.get('date'), args.get('location')))
