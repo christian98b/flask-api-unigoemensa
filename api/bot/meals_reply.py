@@ -1,5 +1,6 @@
 def bot_meals_reply(meals:dict):
     reply = f"Am {meals['date']} gibt es in der {meals['location']}:\n\n"
+    reply += "------------------------------------\n"
     for meal in meals['meals']:
         if meal['name'] != '':
             reply += f"_{meal['type']}:_\n *{meal['name']}*\n\n"
