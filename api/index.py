@@ -62,7 +62,7 @@ def send_mensa(message):
         return
     
 
-    current_date = datetime.now(ZoneInfo("Europe/Berlin"))
+    current_date = datetime.now(tz=ZoneInfo("Europe/Berlin"))
     meals = mensa_meals_as_dict(current_date.strftime("%Y-%m-%d"), location)
     reply = bot_meals_reply(meals)
     bot.reply_to(
