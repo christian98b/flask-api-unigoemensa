@@ -5,7 +5,7 @@ import requests
 """
 Function that crawls the html menu from the studentenwerk website and returns it as json.
 """
-def mensaMenuAsJson(date:str, location:str):
+def mensa_meals_as_dict(date:str, location:str):
     response = requests.get(f"https://www.studentenwerk-goettingen.de/fileadmin/templates/php/mensaspeiseplan/cached/de/{date}/{location}.html")
     my_str_as_bytes = str.encode(response.text, encoding='ISO-8859-1')
     html_text = my_str_as_bytes.decode('UTF-8')

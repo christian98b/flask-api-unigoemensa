@@ -1,6 +1,8 @@
 import flask
 from flask import request, jsonify
-from api.crawler.menu import mensaMenuAsJson
+from api.crawler.meals import mensa_meals_as_dict
+from api.bot.meals_reply import bot_meals_reply
+
 import os
 import telebot
 from dotenv import load_dotenv
@@ -32,22 +34,15 @@ def webhook():
 def menu():
     args=request.args
     args=args.to_dict()
-    return jsonify(mensaMenuAsJson(args.get('date'), args.get('location')))
+    return jsonify(mensa_meals_as_dict(args.get('date'), args.get('location')))
 
-# Handle '/start' and '/help'
-@bot.message_handler(commands=["mensa"])
-def send_welcome(message):
+# Bot routes from here on
+@bot.message_handler(commands=["mensa,turmmensa"])
+def send_mensa(message):
+    mensa = message.text.split(" ")[0]
     current_date = datetime.date.today()
-    menu = mensaMenuAsJson(current_date.strftime("%Y-%m-%d"), 'zentralmensa')
-    reply = f"Am {menu['date']} gibt es in der {menu['location']}:\n\n"
-    for meal in menu['meals']:
-        reply += f"_{meal['type']}:_\n *{meal['name']}*\n"
-        reply += f"Zutaten: {meal['meal_ingredients']}\n"
-        if meal['content'] != '':
-            reply += f"Angebot: {meal['content']}\n\n"
-        else:
-            reply += "\n"
-
+    meals = mensa_meals_as_dict(current_date.strftime("%Y-%m-%d"), mensa)
+    reply = bot_meals_reply(meals)
     bot.reply_to(
         message,reply,parse_mode='Markdown'
     )
