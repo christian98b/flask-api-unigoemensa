@@ -39,13 +39,12 @@ def menu():
 def send_welcome(message):
     current_date = datetime.date.today()
     menu = mensaMenuAsJson(current_date.strftime("%Y-%m-%d"), 'zentralmensa')
-    reply = "Am " + menu['date'] + " gibt es in der " + menu['location'] + ":\n\n"
+    reply = f"Am {menu['date']} gibt es in der {menu['location']}:\n\n"
     for meal in menu['meals']:
-      reply += meal['type'] + ":\n *" + meal['name'] + "*\n"
-      reply += "Zutaten: " + meal['meal_ingredients'] + "\n\n"
-    #if meal['content'] != '':
-    #  reply += "Angebot: " + meal['content'] + "\n"
-    #  reply += "\n"
+        reply += f"{meal['type']}:\n <strong>{meal['name']}<strong>\n"
+        reply += f"Zutaten: {meal['meal_ingredients']}\n\n"
+        if meal['content'] != '':
+            reply += f"Angebot: {meal['content']}\n\n"
 
     bot.reply_to(
         message,reply
