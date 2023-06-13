@@ -56,5 +56,5 @@ def send_welcome(message):
 if __name__ == "__main__":
     # Remove webhook, it fails sometimes the set if there is a previous webhook
     bot.remove_webhook()
-    bot.set_webhook(url="https://flask-api-unigoemensa-christian98b.vercel.app//webhook")
+    bot.set_webhook(url="https://flask-api-unigoemensa-christian98b.vercel.app/webhook")
     #bot.set_webhook(url="https://50b7-2a02-3102-44b5-ffd1-e90d-76f3-a3f9-cc0d.ngrok-free.app/webhook")
