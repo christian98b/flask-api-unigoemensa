@@ -56,5 +56,5 @@ def send_welcome(message):
 #if __name__ == "__main__":
 #    # Remove webhook, it fails sometimes the set if there is a previous webhook
 #    bot.remove_webhook()
-#    #bot.set_webhook(url="https:unigoemensaplan.vercel.app/webhook")
+#    #bot.set_webhook(url="https://unigoemensaplan.vercel.app/webhook")
 #    bot.set_webhook(url="https://3409-2a01-c22-8442-3500-b5a7-2e07-c70-347.ngrok-free.app/webhook")
