@@ -10,6 +10,8 @@ load_dotenv()
 app = flask.Flask(__name__)
 
 bot = telebot.TeleBot(os.environ.get('TELEGRAM_TOKEN'), threaded=False)
+bot.remove_webhook()
+bot.set_webhook(url="https://unigoemensaplan.vercel.app/webhook")
 
 @app.route('/')
 def home():
@@ -46,8 +48,3 @@ def send_welcome(message):
         
         """,
     )
-
-if __name__ == "__main__":
-    # Remove webhook, it fails sometimes the set if there is a previous webhook
-    bot.remove_webhook()
-    bot.set_webhook(url="https://unigoemensaplan.vercel.app/webhook")
