@@ -37,15 +37,27 @@ def menu():
     return jsonify(mensa_meals_as_dict(args.get('date'), args.get('location')))
 
 # Bot routes from here on
-@bot.message_handler(commands=["mensa,turmmensa"])
+@bot.message_handler(commands=["zentralmensa","mensaamturm"])
 def send_mensa(message):
-    mensa = message.text.split(" ")[0]
+    #Get the command from the message
+    command = message.text.split(" ")[0]
+    if command == "/zentralmensa":
+        location = "zentralmensa"
+    elif command == "/mensaamturm":
+        location = "mensa_am_turm"
+    else:
+        bot.reply_to(
+        message,"Wähle eine Mensa aus",parse_mode='Markdown'
+    )
+
+        return
     current_date = datetime.date.today()
-    meals = mensa_meals_as_dict(current_date.strftime("%Y-%m-%d"), mensa)
+    meals = mensa_meals_as_dict(current_date.strftime("%Y-%m-%d"), location)
     reply = bot_meals_reply(meals)
     bot.reply_to(
         message,reply,parse_mode='Markdown'
     )
+    return
 
 
 #if __name__ == "__main__":
