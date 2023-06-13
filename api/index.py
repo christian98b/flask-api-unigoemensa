@@ -45,6 +45,8 @@ def send_welcome(message):
         reply += f"Zutaten: {meal['meal_ingredients']}\n"
         if meal['content'] != '':
             reply += f"Angebot: {meal['content']}\n\n"
+        else:
+            reply += "\n"
 
     bot.reply_to(
         message,reply,parse_mode='Markdown'
