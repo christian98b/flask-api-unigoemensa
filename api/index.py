@@ -47,7 +47,7 @@ def send_welcome(message):
     )
     return
 
-@bot.message_handler(commands=["zentralmensa","mensaamturm"])
+@bot.message_handler(commands=["zentralmensa","mensaamturm","lunchbox"])
 def send_mensa(message):
     #Get the command from the message
     command = message.text.split(" ")[0]
@@ -55,6 +55,8 @@ def send_mensa(message):
         location = "zentralmensa"
     elif command == "/mensaamturm":
         location = "mensa_am_turm"
+    elif command == "/lunchbox":
+        location = "lunchbox"
     else:
         bot.reply_to(
         message,"Wähle eine Mensa aus",parse_mode='Markdown'
