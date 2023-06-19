@@ -26,7 +26,7 @@ def hello():
 @app.route('/renew_webhook')
 def renew_webhook():
     response = requests.get(f"https://api.telegram.org/bot{os.environ.get('TELEGRAM_TOKEN')}/setWebhook?url=https://unigoemensaplan.vercel.app/webhook")
-    if response.status_code == 400:
+    if response.status_code != 200:
         return {"status": "error"}
     else:
         return {"status": "ok"}
