@@ -2,6 +2,7 @@ import flask
 from flask import request, jsonify
 from api.crawler.meals import mensa_meals_as_dict
 from api.bot.meals_reply import bot_meals_reply
+import requests
 
 import os
 import telebot
@@ -21,6 +22,14 @@ bot = telebot.TeleBot(os.environ.get('TELEGRAM_TOKEN'), threaded=False)
 @app.route('/')
 def hello():
     return {"status": "ok"}
+
+@app.route('/renew_webhook')
+def renew_webhook():
+    response = requests.get(f"https://api.telegram.org/bot{os.environ.get('TELEGRAM_TOKEN')}/setWebhook?url=https://unigoemensaplan.vercel.app/webhook")
+    if response.status_code == 400:
+        return {"status": "error"}
+    else:
+        return {"status": "ok"}
 
 @app.route("/webhook", methods=["POST"])
 def webhook():
