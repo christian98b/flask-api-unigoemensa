@@ -83,10 +83,10 @@ def send_mensa(message):
         return
     except CrawlerError as e:
         bot.reply_to(
-            "Es ist ein Fehler beim laden des Speiseplans aufgetreten.",parse_mode="Markdown"
+            message,"Es ist ein Fehler beim laden des Speiseplans aufgetreten.",parse_mode="Markdown"
         )
         return
-    
+
 
 
 #if __name__ == "__main__":
