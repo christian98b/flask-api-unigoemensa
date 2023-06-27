@@ -2,6 +2,7 @@ import flask
 from flask import request, jsonify
 from api.crawler.meals import mensa_meals_as_dict
 from api.bot.meals_reply import bot_meals_reply
+from api.errors.crawler_error import CrawlerError
 import requests
 
 import os
@@ -72,14 +73,20 @@ def send_mensa(message):
     )
         return
     
-
-    current_date = datetime.datetime.now(tz=ZoneInfo("Europe/Berlin"))
-    meals = mensa_meals_as_dict(current_date.strftime("%Y-%m-%d"), location)
-    reply = bot_meals_reply(meals)
-    bot.reply_to(
-        message,reply,parse_mode='Markdown'
-    )
-    return
+    try:
+        current_date = datetime.datetime.now(tz=ZoneInfo("Europe/Berlin"))
+        meals = mensa_meals_as_dict(current_date.strftime("%Y-%m-%d"), location)
+        reply = bot_meals_reply(meals)
+        bot.reply_to(
+            message,reply,parse_mode='Markdown'
+        )
+        return
+    except CrawlerError as e:
+        bot.reply_to(
+            "Es ist ein Fehler beim laden des Speiseplans aufgetreten.",parse_mode="Markdown"
+        )
+        return
+    
 
 
 #if __name__ == "__main__":
