@@ -7,15 +7,15 @@ from api.errors.crawler_error import CrawlerError
 Function that crawls the html menu from the studentenwerk website and returns it as json.
 """
 def mensa_meals_as_dict(date:str, location:str):
+    response = requests.get(f"https://www.studentenwerk-goettingen.de/fileadmin/templates/php/mensaspeiseplan/cached/de/{date}/{location}.html")
+    if response.status_code != 200:
+        raise Exception('Fehler beim Laden des Speiseplans')
+    my_str_as_bytes = str.encode(response.text, encoding='ISO-8859-1')
+    html_text = my_str_as_bytes.decode('ISO-8859-1')
+    soup = BeautifulSoup(html_text, 'html.parser')
+    table = soup.find('table', {'class': 'sp_tab'})
+    meals = []
     try:
-        response = requests.get(f"https://www.studentenwerk-goettingen.de/fileadmin/templates/php/mensaspeiseplan/cached/de/{date}/{location}.html")
-        my_str_as_bytes = str.encode(response.text, encoding='ISO-8859-1')
-        html_text = my_str_as_bytes.decode('UTF-8')
-        soup = BeautifulSoup(html_text, 'html.parser')
-        table = soup.find('table', {'class': 'sp_tab'})
-
-        meals = []
-
         for row in table.find_all('tr')[1:]:
             cells = row.find_all('td')
             meal_type = cells[0].text.strip()
@@ -35,9 +35,7 @@ def mensa_meals_as_dict(date:str, location:str):
                 'meal_ingredients' : meal_ingredients,
                 'content': meal_content,
             }
-
             meals.append(meal)
-
         return {'location': soup.find(class_='sp_date').previous.text.strip(),'date': soup.find(class_='sp_date').text.strip(), 'meals': meals}
     except:
         raise CrawlerError("Error while crawling the mensa meals")

@@ -45,9 +45,12 @@ def webhook():
 
 @app.route('/menu', methods=['GET'])
 def menu():
-    args=request.args
-    args=args.to_dict()
-    return jsonify(mensa_meals_as_dict(args.get('date'), args.get('location')))
+    try:
+        args=request.args
+        args=args.to_dict()
+        return jsonify(mensa_meals_as_dict(args.get('date'), args.get('location')))
+    except Exception as e:
+        return str(e)
 
 # Bot routes from here on
 @bot.message_handler(commands=["start"])
